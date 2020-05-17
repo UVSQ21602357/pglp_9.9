@@ -3,7 +3,11 @@ package uvsq21602357;
 import java.sql.Connection;
 
 public abstract class DAO<T> {
-	protected Connection connect = ;
+	protected Connection connect = null;
+
+	public DAO(Connection conn){
+	 this.connect = conn;
+	}
 	
 	public abstract T create(Cercle C);
 	public abstract T create(Rectangle R);

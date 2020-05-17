@@ -1,11 +1,16 @@
 package uvsq21602357;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FormeDAO extends DAO<Forme> {
 
+	 public FormeDAO(Connection conn) {
+		    super(conn);
+		  }
+	
 	@Override
 	public Forme create(Cercle c) {
 		try {
