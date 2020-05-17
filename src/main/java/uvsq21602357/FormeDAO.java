@@ -85,7 +85,7 @@ public class FormeDAO extends DAO<Forme> {
 
 	@Override
 	public Forme find(String Nom) {
-		Forme f;
+		Forme f = null;
 		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"SELECT * FROM formes WHERE nom = ? ");
@@ -144,13 +144,11 @@ public class FormeDAO extends DAO<Forme> {
 			PreparedStatement prepare = connect.prepareStatement(
 					"DELETE FROM formes WHERE nom = ? ");
 			prepare.setString(1,  obj.getNom());
-			ResultSet result = prepare.executeQuery();
+			prepare.executeQuery();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	return f;
-
 	}
 
 }
