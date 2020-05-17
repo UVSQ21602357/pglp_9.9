@@ -36,14 +36,14 @@ public class AppTest
     
     @Test
     public void testCarré(){
-    	Carré c1 = new Carré("C1", 0, 0, 50, 50);
+    	Carré c1 = new Carré("C1", 0, 0, 10);
     	String str = c1.getNom();
         assertEquals(str, "C1");
     }
     
     @Test
     public void testComposite() {
-    	Carré c1 = new Carré("C1", 0, 0, 50, 50);
+    	Carré c1 = new Carré("C1", 0, 0, 10);
     	Triangle t1 = new Triangle("T1", 0, 0, 50, 50, 70, 25);
     	Rectangle r1 = new Rectangle("R1", 0, 0, 50, 50);
     	Cercle ce1 = new Cercle("C1", 0, 0, 50);

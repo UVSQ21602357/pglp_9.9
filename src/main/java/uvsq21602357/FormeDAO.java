@@ -47,13 +47,12 @@ public class FormeDAO extends DAO<Forme> {
 	public Forme create(Carré c) {
 		try {
 			PreparedStatement prepare = connect.prepareStatement(
-					"INSERT INTO formes (Type, Nom, p1X, p1Y, p2X, p2Y) VALUES (?,?,?,?,?,?)");
+					"INSERT INTO formes (Type, Nom, p1X, p1Y, Taille) VALUES (?,?,?,?,?)");
 			prepare.setString(1, "Carré");
 			prepare.setString(2, c.getNom());
 			prepare.setInt(3, c.getHGX());
 			prepare.setInt(4, c.getHGY());
-			prepare.setInt(5, c.getBDX());
-			prepare.setInt(6, c.getBDY());
+			prepare.setInt(5, c.getTaille());
 			int result = prepare.executeUpdate();
 			assert result == 1;
 		} catch(SQLException e) {
@@ -114,8 +113,7 @@ public class FormeDAO extends DAO<Forme> {
 							result.getString("Nom"),
 							result.getInt("p1X"),
 							result.getInt("p1Y"),
-							result.getInt("p2X"),
-							result.getInt("p2Y"));
+							result.getInt("Taille"));
 				}
 				else if(result.getString("Type").equals("Triangle")) {
 					f = new Triangle(
