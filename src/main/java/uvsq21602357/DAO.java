@@ -10,7 +10,7 @@ public abstract class DAO<T> {
 	public abstract T create(Carré C);
 	public abstract T create(Triangle T);
 	
-	public abstract T find(String id);
+	public abstract T find(String Nom);
 	
 	public abstract T update(T obj);
 	

@@ -63,6 +63,6 @@ public class AppTest
 		f.add(c1);
 		f.add(t1);
 		f.add(r1);
-		assertEquals(fc1.getAllForme(),f);
+		assertEquals(fc1.getAllForme(), f);
     }
 }
