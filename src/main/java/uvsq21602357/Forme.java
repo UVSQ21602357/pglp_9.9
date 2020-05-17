@@ -1,11 +1,6 @@
 package uvsq21602357;
 
-public class Forme {
-	
-	protected String Nom;
-	
-	
-	protected String getNom() {
-		return this.Nom;
-	}
+public interface Forme {
+	public String getNom();
+	public void print();
 }

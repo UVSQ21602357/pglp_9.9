@@ -1,6 +1,7 @@
 package uvsq21602357;
 
-public class Rectangle extends Forme {
+public class Rectangle implements Forme {
+	private String Nom;
 	private int HGX;
 	private int HGY;
 	private int BDX;
@@ -12,6 +13,10 @@ public class Rectangle extends Forme {
 		this.HGY = y;
 		this.BDX = x2;
 		this.BDY = y2;
+	}
+	
+	public String getNom() {
+		return this.Nom;
 	}
 	
 	public int getHGX() {
@@ -28,5 +33,9 @@ public class Rectangle extends Forme {
 	
 	public int getBDY() {
 		return this.BDY;
+	}
+	
+	public void print() {
+		System.out.println("Rectangle(P1=("+ HGX + "," + HGY + "),P2=(" + BDX +","+BDY+ "))");
 	}
 }

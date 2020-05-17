@@ -1,6 +1,7 @@
 package uvsq21602357;
 
-public class Triangle extends Forme {
+public class Triangle implements Forme {
+	private String Nom;
 	private int p1X;
 	private int p1Y;
 	private int p2X;
@@ -16,6 +17,10 @@ public class Triangle extends Forme {
 		this.p2Y = y2;
 		this.p3X = x3;
 		this.p3Y = y3;
+	}
+	
+	public String getNom() {
+		return this.Nom;
 	}
 	
 	public int getP1X() {
@@ -40,5 +45,9 @@ public class Triangle extends Forme {
 	
 	public int getP3Y() {
 		return p3Y;
+	}
+	
+	public void print() {
+		System.out.println("Triangle(P1=("+ p1X + "," + p1Y + "),P2=(" + p2X +","+p2Y+ ",p3=("+p3X+","+p3Y+"))");
 	}
 }

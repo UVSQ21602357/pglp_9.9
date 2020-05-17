@@ -1,6 +1,7 @@
 package uvsq21602357;
 
-public class Cercle extends Forme {
+public class Cercle implements Forme {
+	private String Nom;
 	private int Rayon;
 	private int CentreX;
 	private int CentreY;
@@ -10,6 +11,10 @@ public class Cercle extends Forme {
 		this.CentreX = x;
 		this.CentreY = y;
 		this.Rayon = rayon;
+	}
+	
+	public String getNom() {
+		return this.Nom;
 	}
 	
 	public int getRayon() {
@@ -22,5 +27,9 @@ public class Cercle extends Forme {
 	
 	public int getCentreY() {
 		return this.CentreY;
+	}
+	
+	public void print() {
+		System.out.println("Cercle(centre=("+ CentreX + "," + CentreY + "),Rayon=" + Rayon + ")");
 	}
 }
