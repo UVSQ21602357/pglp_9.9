@@ -70,6 +70,36 @@ public class DrawingTUI {
 					System.out.println("s8 = " + s8[0]);
 				}
 			}
+			else {
+				String[] s = str.split("\\(");
+				if(s[0].equals("move") || s[0].equals("Move")) {
+					String[] s2 = s[1].split(",");
+					String[] s3 = s[2].split(",");
+					String[] s4 = s3[1].split("\\)\\)");
+					System.out.println(s[0]);
+					System.out.println(s2[0]);
+					System.out.println("S3="+s3[0]);
+					System.out.println(s4[0]);
+				}
+				else if(s[0].equals("Delete") || s[0].equals("delete")) {
+					String[] s2 = s[1].split("\\)");
+					System.out.println(s[0]);
+					System.out.println(s2[0]);
+				}
+				else if(s[0].equals("Group") || s[0].equals("group")) {
+					String[] s2 = s[1].split(",");
+					String[] s3 = s2[1].split("\\)");
+					System.out.println(s[0]);
+					System.out.println(s2[0]);
+					System.out.println(s3[0]);
+				}
+				else if(s[0].equals("show") || s[0].equals("Show")) {
+					System.out.println("Dessin: ");
+				}
+				else {
+					System.out.println("Erreur, la commande n'est pas reconnu");
+				}
+			}
 
 
 			
