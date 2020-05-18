@@ -9,6 +9,10 @@ public class DrawingTUI {
 		this.sc = new Scanner(System.in);
 	}
 	
+	private void AfficheAll() {
+		System.out.println("Affichage du dessin");
+	}
+	
 	private void nextCommand() {
 		
 		//Création
@@ -95,6 +99,7 @@ public class DrawingTUI {
 				}
 				else if(s[0].equals("show") || s[0].equals("Show")) {
 					System.out.println("Dessin: ");
+					AfficheAll();
 				}
 				else {
 					System.out.println("Erreur, la commande n'est pas reconnu");
