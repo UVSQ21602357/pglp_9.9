@@ -1,5 +1,10 @@
 package uvsq21602357;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DrawingTUI {
@@ -9,11 +14,57 @@ public class DrawingTUI {
 		this.sc = new Scanner(System.in);
 	}
 	
-	private void AfficheAll() {
+	private void AfficheAll() throws SQLException {
+		  JDBC j = new JDBC();
+		  PreparedStatement prepare = j.conn.prepareStatement("SELECT * FROM formes");
+		  ResultSet result = prepare.executeQuery();
+		  ResultSetMetaData resultMeta = result.getMetaData();
+		  Forme f;
+		  
+		  while(result.next()){         
+		        for(int i = 1; i <= resultMeta.getColumnCount(); i++)
+		        	if(result.getString("Type").equals("Cercle")) {
+						f = new Cercle(
+								result.getString("Nom"),
+								result.getInt("CentreX"),
+								result.getInt("CentreY"),
+								result.getInt("Rayon"));
+								
+					}
+					else if(result.getString("Type").equals("Rectangle")) {
+						f = new Rectangle(
+								result.getString("Nom"),
+								result.getInt("p1X"),
+								result.getInt("p1Y"),
+								result.getInt("p2X"),
+								result.getInt("p2Y"));
+					}
+					else if(result.getString("Type").equals("Carré")) {
+						f = new Carré(
+								result.getString("Nom"),
+								result.getInt("p1X"),
+								result.getInt("p1Y"),
+								result.getInt("Taille"));
+					}
+					else if(result.getString("Type").equals("Triangle")) {
+						f = new Triangle(
+								result.getString("Nom"),
+								result.getInt("p1X"),
+								result.getInt("p1Y"),
+								result.getInt("p2X"),
+								result.getInt("p2Y"),
+								result.getInt("p3X"),
+								result.getInt("p3Y"));
+					}		
+		            
+		        System.out.println("\n---------------------------------");
+
+		      }
+				
 		System.out.println("Affichage du dessin");
 	}
 	
-	private void nextCommand() {
+	private void nextCommand() throws SQLException {
 		
 		//Création
 		System.out.print("Commande = ");
@@ -114,7 +165,7 @@ public class DrawingTUI {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		DrawingTUI d = new DrawingTUI();
 		d.nextCommand();
 	}
