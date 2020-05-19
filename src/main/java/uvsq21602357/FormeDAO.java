@@ -138,17 +138,118 @@ public class FormeDAO extends DAO<Forme> {
 	}
 
 	@Override
-	public Forme update(Forme obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(Cercle C, int x, int y) {
+		Forme f;
+		try {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM formes WHERE nom = ? ");
+			prepare.setString(1,  C.getNom());
+			ResultSet result = prepare.executeQuery();
+			if(result.first()) {
+				if(result.getString("Type").equals("Cercle")) {
+					int i = result.getInt("CentreX");
+					int j = result.getInt("CentreY");
+					i = i + x;
+					j = j + y;
+					prepare = connect.prepareStatement(
+							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
+					prepare.setInt(1, i);
+					prepare.setInt(2, j);
+					prepare.setString(3, C.getNom());
+					prepare.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void update(Rectangle R, int x, int y) {
+		Forme f;
+		try {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM formes WHERE nom = ? ");
+			prepare.setString(1,  R.getNom());
+			ResultSet result = prepare.executeQuery();
+			if(result.first()) {
+				if(result.getString("Type").equals("Rectangle")) {
+					int i = result.getInt("p1X");
+					int j = result.getInt("p1Y");
+					i = i + x;
+					j = j + y;
+					prepare = connect.prepareStatement(
+							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
+					prepare.setInt(1, i);
+					prepare.setInt(2, j);
+					prepare.setString(3, R.getNom());
+					prepare.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void update(Carré C, int x, int y) {
+		Forme f;
+		try {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM formes WHERE nom = ? ");
+			prepare.setString(1,  C.getNom());
+			ResultSet result = prepare.executeQuery();
+			if(result.first()) {
+				if(result.getString("Type").equals("Carré")) {
+					int i = result.getInt("p1X");
+					int j = result.getInt("p1Y");
+					i = i + x;
+					j = j + y;
+					prepare = connect.prepareStatement(
+							"UPDATE places SET p1X = ?, p1eY = ? WHERE Nom = ?");
+					prepare.setInt(1, i);
+					prepare.setInt(2, j);
+					prepare.setString(3, C.getNom());
+					prepare.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void update(Triangle T, int x, int y) {
+		Forme f;
+		try {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM formes WHERE nom = ? ");
+			prepare.setString(1,  T.getNom());
+			ResultSet result = prepare.executeQuery();
+			if(result.first()) {
+				if(result.getString("Type").equals("Triangle")) {
+					int i = result.getInt("p1X");
+					int j = result.getInt("p1Y");
+					i = i + x;
+					j = j + y;
+					prepare = connect.prepareStatement(
+							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
+					prepare.setInt(1, i);
+					prepare.setInt(2, j);
+					prepare.setString(3, T.getNom());
+					prepare.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Override
-	public void delete(Forme obj) {
+	public void delete(String Nom) {
 		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"DELETE FROM formes WHERE nom = ? ");
-			prepare.setString(1,  obj.getNom());
+			prepare.setString(1, Nom);
 			prepare.executeQuery();
 			
 		} catch (SQLException e) {

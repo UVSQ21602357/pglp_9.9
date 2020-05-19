@@ -16,17 +16,17 @@ public class CommandFactory {
 	
 	public void executeCommand(String name) {
 		if(this.commands.containsKey(name)) {
-			this.commands.get(name).apply();
+			this.commands.get(name).execute();
 		}
 	}
 	
 	public static CommandFactory init() {
 		CommandFactory cf = new CommandFactory();
-		cf.addCommand("Créer", () -> );
+		/*cf.addCommand("Créer", () -> );
 		cf.addCommand("Déplacer", () -> );
 		cf.addCommand("Supprimer", () -> );
 		cf.addCommand("Grouper", () -> );
-		cf.addCommand("Afficher", () -> );
+		cf.addCommand("Afficher", () -> );*/
 		return cf;
 	}
 

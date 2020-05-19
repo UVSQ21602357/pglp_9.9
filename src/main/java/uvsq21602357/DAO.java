@@ -16,7 +16,10 @@ public abstract class DAO<T> {
 	
 	public abstract T find(String Nom);
 	
-	public abstract T update(T obj);
+	public abstract void update(Cercle C, int x, int y);
+	public abstract void update(Rectangle R, int x, int y);
+	public abstract void update(Carré C, int x, int y);
+	public abstract void update(Triangle T, int x, int y);
 	
 	public abstract void delete(String Nom);
 	
