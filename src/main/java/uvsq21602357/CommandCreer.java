@@ -35,7 +35,7 @@ public class CommandCreer implements Command {
         if(cercle != null) {
         	Forme test = FD.find(this.cercle.getNom());
         	if(test != null) {
-           	 FD.create(cercle);
+           	FD.create(cercle);
             }
         }
         else if(rect != null) {

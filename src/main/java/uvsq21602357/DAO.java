@@ -9,10 +9,10 @@ public abstract class DAO<T> {
 	 this.connect = conn;
 	}
 	
-	public abstract T create(Cercle C);
-	public abstract T create(Rectangle R);
-	public abstract T create(Carré C);
-	public abstract T create(Triangle T);
+	public abstract void create(Cercle C);
+	public abstract void create(Rectangle R);
+	public abstract void create(Carré C);
+	public abstract void create(Triangle T);
 	
 	public abstract T find(String Nom);
 	

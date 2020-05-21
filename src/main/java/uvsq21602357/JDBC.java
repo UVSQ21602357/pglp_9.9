@@ -3,30 +3,48 @@ package uvsq21602357;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 public class JDBC {
-
-	private static final String Driver = "org.apache.derby.jdbc.EmbeddedDriver";
-	private static String dburl = "jdbc:derby:pglp:create=true";
-	Connection conn;
+	public Connection conn;
 	
-	public JDBC() {
+	public JDBC() throws SQLException, ClassNotFoundException {
+		Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+	      //Getting the Connection object
+	      String URL = "jdbc:derby:forme;create=true";
+	      this.conn = DriverManager.getConnection(URL);
+	      if(conn!= null) {
+	      System.out.println("Connecté à la base");
+	      }
+	      //Creating the Statement object
+	   }
+	
+	
+	public void CreateTable() {
+		  Statement stmt;
 		try {
-			this.conn = DriverManager.getConnection(dburl);
-			if(this.conn != null) {
-				System.out.println("Connexion reussi");
-			}
-			else { 
-				System.out.println("Echec de connexion");
-			}
-		} catch  (SQLException e) {
-			
+			stmt = this.conn.createStatement();
+			 //Executing the query
+		      String query = "CREATE TABLE formes( "
+		         + "Nom VARCHAR(255) NOT NULL, "
+		         + "Type VARCHAR(255) NOT NULL, "
+		         + "p1X INT, "
+		         + "p1Y INT, "
+		         + "p2X INT, "
+		         + "p2Y INT, "
+		         + "p3X INT, "
+		         + "p3Y INT, "
+		         + "Rayon INT, "
+		         + "PRIMARY KEY (Nom))";
+		         stmt.execute(query);
+		         System.out.println("Table créer");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-		JDBC connectTest = new JDBC();
+			 
+	     
 	}
 
 }

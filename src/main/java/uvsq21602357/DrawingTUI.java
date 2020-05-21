@@ -29,7 +29,7 @@ public class DrawingTUI {
 								result.getInt("CentreX"),
 								result.getInt("CentreY"),
 								result.getInt("Rayon"));
-						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("CentreX") +", " + result.getInt("CentreY") +
+						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 											"), "+result.getInt("Rayon")+")");
 								
 					}
@@ -72,13 +72,11 @@ public class DrawingTUI {
 		System.out.println("Affichage du dessin");
 	}
 	
-	private void nextCommand() throws SQLException {
+	private void nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
 		
 		//Création
 		System.out.print("Commande = ");
 		String str = sc.nextLine();
-		 JDBC j = new JDBC();
-		FormeDAO fd = new FormeDAO(j.conn);
 		while(str.equals("Fin") == false) {
 			
 			if(str.equals("Create") || str.equals("create")) {
@@ -93,7 +91,8 @@ public class DrawingTUI {
 					int y = Integer.parseInt(s4[1]);
 					int z = Integer.parseInt(s5[0]);
 					Cercle c = new Cercle(s[0], x, y, z);
-					fd.create(c);
+					CommandCreer com = new CommandCreer(conn, c);
+					com.execute();
 					/*System.out.println("s = " + s[0]);
 					System.out.println("s2 = " + s2[0]);
 					System.out.println("s4[0] = " + s4[0]);
@@ -115,7 +114,8 @@ public class DrawingTUI {
 					int z = Integer.parseInt(s5[0]);
 					int t = Integer.parseInt(s6[0]);
 					Rectangle R = new Rectangle(s[0], x, y, z, t);
-					fd.create(R);
+					CommandCreer com = new CommandCreer(conn, R);
+					com.execute();
 				}
 				else if(s2[0].equals("Carré") || s2[0].equals("carré")) {
 					String[] s3 = s2[1].split("\\),");
@@ -130,7 +130,8 @@ public class DrawingTUI {
 					int y = Integer.parseInt(s4[1]);
 					int z = Integer.parseInt(s5[0]);
 					Carré c = new Carré(s[0], x, y, z);
-					fd.create(c);
+					CommandCreer com = new CommandCreer(conn, c);
+					com.execute();
 				}
 				else if(s2[0].equals("Triangle") || s2[0].equals("triangle")) {
 					String[] s3 = s2[1].split("\\),\\(");
@@ -153,42 +154,31 @@ public class DrawingTUI {
 					int m = Integer.parseInt(s7[0]);
 					int n = Integer.parseInt(s8[0]);
 					Triangle T = new Triangle(s[0], x, y, z, t, m, n);
-					fd.create(T);
+					CommandCreer com = new CommandCreer(conn, T);
+					com.execute();
 				}
 			}
 			else {
 				String[] s = str.split("\\(");
 				if(s[0].equals("move") || s[0].equals("Move")) {
-					//c1,Cercle,(10,20))
-					String[] s2 = s[1].split(",\\(");
-					String[] s3 = s[2].split(",");
-					String[] s4 = s2[1].split(",");
-					String[] s5 = s4[1].split("\\)\\)");
+					String[] s2 = s[1].split(",");
+					String[] s3 = s2[2].split("\\)");
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
-					System.out.println("S3="+s3[0]);
-					System.out.println(s4[0]);
-					int x = Integer.parseInt(s4[0]);
-					int y = Integer.parseInt(s5[0]);
-					if(s3[1].equals("Cercle") || s3[1].equals("cercle")) {
-						
-					}
-					else if(s3[1].equals("Triangle") || s3[1].equals("triangle")) {
-						
-					}
-					else if(s3[1].equals("carré") || s3[1].equals("Carré")) {
-						
-					}
-					else if(s3[1].equals("Triangle") || s3[1].equals("triangle")) {
-						
-					}
+					System.out.println(s2[1]);
+					System.out.println(s3[0]);
+					int x = Integer.parseInt(s2[1]);
+					int y = Integer.parseInt(s3[0]);
+					CommandMove com = new CommandMove(conn, s2[0], x, y);
+					com.execute();
 					
 				}
 				else if(s[0].equals("Delete") || s[0].equals("delete")) {
 					String[] s2 = s[1].split("\\)");
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
-					fd.delete(s2[0]);
+					CommandeDelete com = new CommandeDelete(conn, s2[0]);
+					com.execute();
 				}
 				else if(s[0].equals("Group") || s[0].equals("group")) {
 					String[] s2 = s[1].split(",");
@@ -199,7 +189,7 @@ public class DrawingTUI {
 				}
 				else if(s[0].equals("show") || s[0].equals("Show")) {
 					System.out.println("Dessin: ");
-					AfficheAll(j.conn);
+					AfficheAll(conn);
 				}
 				else {
 					System.out.println("Erreur, la commande n'est pas reconnu");
@@ -214,8 +204,18 @@ public class DrawingTUI {
 		}
 	}
 	
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		DrawingTUI d = new DrawingTUI();
-		d.nextCommand();
+		JDBC j = new JDBC();
+		j.CreateTable();
+		d.nextCommand(j.conn);
+		
+
+		Cercle C = new Cercle("c1", 10, 20, 15);
+		FormeDAO f = new FormeDAO(j.conn);
+	f.create(C);
+	f.find("c1");
+	f.delete("c1");
+		
 	}
 }
