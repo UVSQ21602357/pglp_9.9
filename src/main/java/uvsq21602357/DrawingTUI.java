@@ -14,9 +14,9 @@ public class DrawingTUI {
 		this.sc = new Scanner(System.in);
 	}
 	
-	private void AfficheAll() throws SQLException {
-		  JDBC j = new JDBC();
-		  PreparedStatement prepare = j.conn.prepareStatement("SELECT * FROM formes");
+	private void AfficheAll(Connection conn) throws SQLException {
+		 
+		  PreparedStatement prepare = conn.prepareStatement("SELECT * FROM formes");
 		  ResultSet result = prepare.executeQuery();
 		  ResultSetMetaData resultMeta = result.getMetaData();
 		  Forme f;
@@ -29,6 +29,8 @@ public class DrawingTUI {
 								result.getInt("CentreX"),
 								result.getInt("CentreY"),
 								result.getInt("Rayon"));
+						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("CentreX") +", " + result.getInt("CentreY") +
+											"), "+result.getInt("Rayon")+")");
 								
 					}
 					else if(result.getString("Type").equals("Rectangle")) {
@@ -38,6 +40,8 @@ public class DrawingTUI {
 								result.getInt("p1Y"),
 								result.getInt("p2X"),
 								result.getInt("p2Y"));
+						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+								"), ( "+result.getInt("p2X")+", "+ result.getInt("p2Y") +" ))" );
 					}
 					else if(result.getString("Type").equals("Carré")) {
 						f = new Carré(
@@ -45,6 +49,8 @@ public class DrawingTUI {
 								result.getInt("p1X"),
 								result.getInt("p1Y"),
 								result.getInt("Taille"));
+						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+								"), taille = "+result.getInt("p2X")+")" );
 					}
 					else if(result.getString("Type").equals("Triangle")) {
 						f = new Triangle(
@@ -55,7 +61,9 @@ public class DrawingTUI {
 								result.getInt("p2Y"),
 								result.getInt("p3X"),
 								result.getInt("p3Y"));
-					}		
+						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+								"), ( "+result.getInt("p2X")+", "+ result.getInt("p2Y") +" ),( "+ result.getInt("p3X")+", "+ result.getInt("p3Y")+"))");
+					}				
 		            
 		        System.out.println("\n---------------------------------");
 
@@ -69,6 +77,8 @@ public class DrawingTUI {
 		//Création
 		System.out.print("Commande = ");
 		String str = sc.nextLine();
+		 JDBC j = new JDBC();
+		FormeDAO fd = new FormeDAO(j.conn);
 		while(str.equals("Fin") == false) {
 			
 			if(str.equals("Create") || str.equals("create")) {
@@ -79,6 +89,11 @@ public class DrawingTUI {
 					String[] s3 = s2[1].split("\\),");
 					String[] s4 = s3[0].split(",");
 					String[] s5 = s3[1].split("\\)");
+					int x = Integer.parseInt(s4[0]);
+					int y = Integer.parseInt(s4[1]);
+					int z = Integer.parseInt(s5[0]);
+					Cercle c = new Cercle(s[0], x, y, z);
+					fd.create(c);
 					/*System.out.println("s = " + s[0]);
 					System.out.println("s2 = " + s2[0]);
 					System.out.println("s4[0] = " + s4[0]);
@@ -90,56 +105,90 @@ public class DrawingTUI {
 					String[] s4 = s3[0].split(",");
 					String[] s5 = s3[1].split(",");
 					String[] s6 = s5[1].split("\\)");
-					System.out.println("s2 = " + s2[0]);
+					/*System.out.println("s2 = " + s2[0]);
 					System.out.println("s4[0] = " + s4[0]);
 					System.out.println("s4[1] = " + s4[1]);
 					System.out.println("s5 = " + s5[0]);
-					System.out.println("s6 = " + s6[0]);
-					//c1=Rectangle((0,0),(10,15))
+					System.out.println("s6 = " + s6[0]);*/
+					int x = Integer.parseInt(s4[0]);
+					int y = Integer.parseInt(s4[1]);
+					int z = Integer.parseInt(s5[0]);
+					int t = Integer.parseInt(s6[0]);
+					Rectangle R = new Rectangle(s[0], x, y, z, t);
+					fd.create(R);
 				}
 				else if(s2[0].equals("Carré") || s2[0].equals("carré")) {
-					String[] s3 = s2[1].split("\\),\\(");
+					String[] s3 = s2[1].split("\\),");
 					String[] s4 = s3[0].split(",");
-					String[] s5 = s3[1].split(",");
-					String[] s6 = s5[1].split("\\)");
-					System.out.println("s2 = " + s2[0]);
+					String[] s5 = s3[1].split("\\)");
+					// Carré((5,10), 12)
+					/*System.out.println("s2 = " + s2[0]);
 					System.out.println("s4[0] = " + s4[0]);
 					System.out.println("s4[1] = " + s4[1]);
-					System.out.println("s5 = " + s5[0]);
-					System.out.println("s6 = " + s6[0]);
+					System.out.println("s5 = " + s5[0]);*/
+					int x = Integer.parseInt(s4[0]);
+					int y = Integer.parseInt(s4[1]);
+					int z = Integer.parseInt(s5[0]);
+					Carré c = new Carré(s[0], x, y, z);
+					fd.create(c);
 				}
 				else if(s2[0].equals("Triangle") || s2[0].equals("triangle")) {
-					//T1=triangle((0,0),(10,10),(15,25))
 					String[] s3 = s2[1].split("\\),\\(");
 					String[] s4 = s3[0].split(",");
 					String[] s5 = s3[1].split(",");
 					String[] s6 = s5[1].split("\\),\\(");
 					String[] s7 = s3[2].split(",");
 					String[] s8 = s7[1].split("\\)");
-					System.out.println("s2 = " + s2[0]);
+					/*System.out.println("s2 = " + s2[0]);
 					System.out.println("s4[0] = " + s4[0]);
 					System.out.println("s4[1] = " + s4[1]);
 					System.out.println("s5 = " + s5[0]);
 					System.out.println("s6 = " + s6[0]);
 					System.out.println("s7 = " + s7[0]);
-					System.out.println("s8 = " + s8[0]);
+					System.out.println("s8 = " + s8[0]);*/
+					int x = Integer.parseInt(s4[0]);
+					int y = Integer.parseInt(s4[1]);
+					int z = Integer.parseInt(s5[0]);
+					int t = Integer.parseInt(s6[0]);
+					int m = Integer.parseInt(s7[0]);
+					int n = Integer.parseInt(s8[0]);
+					Triangle T = new Triangle(s[0], x, y, z, t, m, n);
+					fd.create(T);
 				}
 			}
 			else {
 				String[] s = str.split("\\(");
 				if(s[0].equals("move") || s[0].equals("Move")) {
-					String[] s2 = s[1].split(",");
+					//c1,Cercle,(10,20))
+					String[] s2 = s[1].split(",\\(");
 					String[] s3 = s[2].split(",");
-					String[] s4 = s3[1].split("\\)\\)");
+					String[] s4 = s2[1].split(",");
+					String[] s5 = s4[1].split("\\)\\)");
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
 					System.out.println("S3="+s3[0]);
 					System.out.println(s4[0]);
+					int x = Integer.parseInt(s4[0]);
+					int y = Integer.parseInt(s5[0]);
+					if(s3[1].equals("Cercle") || s3[1].equals("cercle")) {
+						
+					}
+					else if(s3[1].equals("Triangle") || s3[1].equals("triangle")) {
+						
+					}
+					else if(s3[1].equals("carré") || s3[1].equals("Carré")) {
+						
+					}
+					else if(s3[1].equals("Triangle") || s3[1].equals("triangle")) {
+						
+					}
+					
 				}
 				else if(s[0].equals("Delete") || s[0].equals("delete")) {
 					String[] s2 = s[1].split("\\)");
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
+					fd.delete(s2[0]);
 				}
 				else if(s[0].equals("Group") || s[0].equals("group")) {
 					String[] s2 = s[1].split(",");
@@ -150,7 +199,7 @@ public class DrawingTUI {
 				}
 				else if(s[0].equals("show") || s[0].equals("Show")) {
 					System.out.println("Dessin: ");
-					AfficheAll();
+					AfficheAll(j.conn);
 				}
 				else {
 					System.out.println("Erreur, la commande n'est pas reconnu");

@@ -138,12 +138,12 @@ public class FormeDAO extends DAO<Forme> {
 	}
 
 	@Override
-	public void update(Cercle C, int x, int y) {
+	public void update(String Nom, int x, int y) {
 		Forme f;
 		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"SELECT * FROM formes WHERE nom = ? ");
-			prepare.setString(1,  C.getNom());
+			prepare.setString(1,  Nom);
 			ResultSet result = prepare.executeQuery();
 			if(result.first()) {
 				if(result.getString("Type").equals("Cercle")) {
@@ -155,25 +155,10 @@ public class FormeDAO extends DAO<Forme> {
 							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
 					prepare.setInt(1, i);
 					prepare.setInt(2, j);
-					prepare.setString(3, C.getNom());
+					prepare.setString(3, Nom);
 					prepare.executeUpdate();
 				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void update(Rectangle R, int x, int y) {
-		Forme f;
-		try {
-			PreparedStatement prepare = connect.prepareStatement(
-					"SELECT * FROM formes WHERE nom = ? ");
-			prepare.setString(1,  R.getNom());
-			ResultSet result = prepare.executeQuery();
-			if(result.first()) {
-				if(result.getString("Type").equals("Rectangle")) {
+				else if(result.getString("Type").equals("Rectangle")) {
 					int i = result.getInt("p1X");
 					int j = result.getInt("p1Y");
 					i = i + x;
@@ -182,25 +167,10 @@ public class FormeDAO extends DAO<Forme> {
 							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
 					prepare.setInt(1, i);
 					prepare.setInt(2, j);
-					prepare.setString(3, R.getNom());
+					prepare.setString(3, Nom);
 					prepare.executeUpdate();
 				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void update(Carré C, int x, int y) {
-		Forme f;
-		try {
-			PreparedStatement prepare = connect.prepareStatement(
-					"SELECT * FROM formes WHERE nom = ? ");
-			prepare.setString(1,  C.getNom());
-			ResultSet result = prepare.executeQuery();
-			if(result.first()) {
-				if(result.getString("Type").equals("Carré")) {
+				else if(result.getString("Type").equals("Carré")) {
 					int i = result.getInt("p1X");
 					int j = result.getInt("p1Y");
 					i = i + x;
@@ -209,25 +179,10 @@ public class FormeDAO extends DAO<Forme> {
 							"UPDATE places SET p1X = ?, p1eY = ? WHERE Nom = ?");
 					prepare.setInt(1, i);
 					prepare.setInt(2, j);
-					prepare.setString(3, C.getNom());
+					prepare.setString(3, Nom);
 					prepare.executeUpdate();
 				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void update(Triangle T, int x, int y) {
-		Forme f;
-		try {
-			PreparedStatement prepare = connect.prepareStatement(
-					"SELECT * FROM formes WHERE nom = ? ");
-			prepare.setString(1,  T.getNom());
-			ResultSet result = prepare.executeQuery();
-			if(result.first()) {
-				if(result.getString("Type").equals("Triangle")) {
+				else if(result.getString("Type").equals("Triangle")) {
 					int i = result.getInt("p1X");
 					int j = result.getInt("p1Y");
 					i = i + x;
@@ -236,7 +191,7 @@ public class FormeDAO extends DAO<Forme> {
 							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
 					prepare.setInt(1, i);
 					prepare.setInt(2, j);
-					prepare.setString(3, T.getNom());
+					prepare.setString(3, Nom);
 					prepare.executeUpdate();
 				}
 			}
@@ -244,6 +199,7 @@ public class FormeDAO extends DAO<Forme> {
 			e.printStackTrace();
 		}
 	}
+
 
 	public void delete(String Nom) {
 		try {
