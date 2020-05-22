@@ -13,7 +13,9 @@ public class DrawingApp {
 		j.CreateTable();
 		while(true) {
 			Command c = d.nextCommand(j.conn);
-			c.execute();
+			if(c != null) {
+				c.execute();
+			}
 		}		
 	}
 	

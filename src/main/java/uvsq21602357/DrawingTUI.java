@@ -15,74 +15,66 @@ public class DrawingTUI {
 	}
 	
 	private void AfficheAll(Connection conn) throws SQLException {
-		 
-		  PreparedStatement prepare = conn.prepareStatement("SELECT * FROM formes");
-		  ResultSet result = prepare.executeQuery();
-		  ResultSetMetaData resultMeta = result.getMetaData();
-		  Forme f;
-		  while(result.next()){        
+		 Forme f;
+		PreparedStatement prepare = conn.prepareStatement(
+				"SELECT * FROM formes WHERE nom = ? ");
+		prepare.setString(1,  "C1");
+		
 
-			  System.out.println("On y est");
-		        	if(result.getString("Type").equals("Cercle")) {
-						f = new Cercle(
-								result.getString("Nom"),
-								result.getInt("p1X"),
-								result.getInt("p1Y"),
-								result.getInt("Rayon"));
-						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
-											"), "+result.getInt("Rayon")+")");
-								
-					}
-					else if(result.getString("Type").equals("Rectangle")) {
-						f = new Rectangle(
-								result.getString("Nom"),
-								result.getInt("p1X"),
-								result.getInt("p1Y"),
-								result.getInt("p2X"),
-								result.getInt("p2Y"));
-						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
-								"), ( "+result.getInt("p2X")+", "+ result.getInt("p2Y") +" ))" );
-					}
-					else if(result.getString("Type").equals("Carré")) {
-						f = new Carré(
-								result.getString("Nom"),
-								result.getInt("p1X"),
-								result.getInt("p1Y"),
-								result.getInt("Taille"));
-						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
-								"), taille = "+result.getInt("p2X")+")" );
-					}
-					else if(result.getString("Type").equals("Triangle")) {
-						f = new Triangle(
-								result.getString("Nom"),
-								result.getInt("p1X"),
-								result.getInt("p1Y"),
-								result.getInt("p2X"),
-								result.getInt("p2Y"),
-								result.getInt("p3X"),
-								result.getInt("p3Y"));
-						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
-								"), ( "+result.getInt("p2X")+", "+ result.getInt("p2Y") +" ),( "+ result.getInt("p3X")+", "+ result.getInt("p3Y")+"))");
-					}				
-		            
-		        System.out.println("\n---------------------------------");
-
-		      }
-				
-		System.out.println("Affichage du dessin");
+		ResultSet result = prepare.executeQuery();
+		if(result != null) {System.out.println("test");}
+		while(result.next()) {
+			System.out.println("test");
+			if(result.getString("Type").equals("Cercle")) {
+				f = new Cercle(
+						result.getString("Nom"),
+						result.getInt("p1X"),
+						result.getInt("p1Y"),
+						result.getInt("Rayon"));
+				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+						"), "+result.getInt("Rayon")+")");
+						
+			}
+			else if(result.getString("Type").equals("Rectangle")) {
+				f = new Rectangle(
+						result.getString("Nom"),
+						result.getInt("p1X"),
+						result.getInt("p1Y"),
+						result.getInt("p2X"),
+						result.getInt("p2Y"));
+			}
+			else if(result.getString("Type").equals("Carré")) {
+				f = new Carré(
+						result.getString("Nom"),
+						result.getInt("p1X"),
+						result.getInt("p1Y"),
+						result.getInt("Taille"));
+			}
+			else if(result.getString("Type").equals("Triangle")) {
+				f = new Triangle(
+						result.getString("Nom"),
+						result.getInt("p1X"),
+						result.getInt("p1Y"),
+						result.getInt("p2X"),
+						result.getInt("p2Y"),
+						result.getInt("p3X"),
+						result.getInt("p3Y"));
+			}		
 	}
+}
 	
 	Command nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
 		
 		//Création
 		System.out.print("Commande = ");
 		String str = sc.nextLine();
-			if(str.equals("Fin") || str.equals("fin")) {
+			if(str.equals("End") || str.equals("end")) {
 				CommandFin c = new CommandFin();
 				return c;
 			}
 			
 			if(str.equals("Create") || str.equals("create")) {
+				System.out.println("Create: ");
 				str = sc.nextLine();
 				String[] s = str.split("=");
 				String[] s2 = s[1].split("\\(\\(");
