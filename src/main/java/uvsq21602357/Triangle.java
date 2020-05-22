@@ -8,6 +8,7 @@ public class Triangle implements Forme {
 	private int p2Y;
 	private int p3X;
 	private int p3Y;
+	public String Groupe;
 	
 	public Triangle(String nom, int x1, int y1, int x2, int y2, int x3, int y3) {
 		this.Nom = nom;
@@ -21,6 +22,14 @@ public class Triangle implements Forme {
 	
 	public String getNom() {
 		return this.Nom;
+	}
+	
+	public void setGroupe(String str) {
+		this.Groupe = str;
+	}
+	
+	public String getGroupe() {
+		return this.Groupe;
 	}
 	
 	public int getP1X() {

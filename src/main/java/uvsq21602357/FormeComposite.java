@@ -34,6 +34,10 @@ public class FormeComposite implements Forme {
 		return "null";
 	}
 	
+	public String getGroupe() {
+		return "null";
+	}
+	
 	
 	
 

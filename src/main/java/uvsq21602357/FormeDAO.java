@@ -103,6 +103,8 @@ public class FormeDAO extends DAO<Forme> {
 							result.getInt("p1X"),
 							result.getInt("p1Y"),
 							result.getInt("Rayon"));
+					System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+							"), "+result.getInt("Rayon")+")");
 				}
 				else if(result.getString("Type").equals("Rectangle")) {
 					f = new Rectangle(
@@ -111,6 +113,8 @@ public class FormeDAO extends DAO<Forme> {
 							result.getInt("p1Y"),
 							result.getInt("p2X"),
 							result.getInt("p2Y"));
+					System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+							"),("+result.getInt("p2X")+", "+result.getInt("p2Y")+"))");
 				}
 				else if(result.getString("Type").equals("Carré")) {
 					f = new Carré(
@@ -118,6 +122,8 @@ public class FormeDAO extends DAO<Forme> {
 							result.getInt("p1X"),
 							result.getInt("p1Y"),
 							result.getInt("Taille"));
+					System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+							"), "+result.getInt("Taille")+")");
 				}
 				else if(result.getString("Type").equals("Triangle")) {
 					f = new Triangle(
@@ -128,6 +134,8 @@ public class FormeDAO extends DAO<Forme> {
 							result.getInt("p2Y"),
 							result.getInt("p3X"),
 							result.getInt("p3Y"));
+					System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+							"),( "+result.getInt("p2X")+", "+result.getInt("p2Y")+"),(" + result.getInt("p2X")+", "+result.getInt("p2Y")+"))" );
 				}		
 			}
 		} catch (SQLException e) {

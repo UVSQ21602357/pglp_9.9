@@ -5,6 +5,7 @@ public class Cercle implements Forme {
 	private int Rayon;
 	private int CentreX;
 	private int CentreY;
+	public String Groupe;
 	
 	public Cercle(String nom, int x, int y, int rayon) {
 		this.Nom = nom;
@@ -15,6 +16,14 @@ public class Cercle implements Forme {
 	
 	public String getNom() {
 		return this.Nom;
+	}
+	
+	public void setGroupe(String str) {
+		this.Groupe = str;
+	}
+	
+	public String getGroupe() {
+		return this.Groupe;
 	}
 	
 	public int getRayon() {

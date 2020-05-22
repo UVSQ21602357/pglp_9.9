@@ -5,6 +5,7 @@ public class Carré implements Forme{
 	private int HGX;
 	private int HGY;
 	private int taille;
+	public String Groupe;
 	
 	public Carré(String nom, int x, int y, int t) {
 		this.Nom = nom;
@@ -15,6 +16,14 @@ public class Carré implements Forme{
 	
 	public String getNom() {
 		return this.Nom;
+	}
+	
+	public void setGroupe(String str) {
+		this.Groupe = str;
+	}
+	
+	public String getGroupe() {
+		return this.Groupe;
 	}
 	
 	public int getHGX() {

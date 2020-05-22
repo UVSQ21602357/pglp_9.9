@@ -27,7 +27,7 @@ public class DrawingTUI {
 						result.getInt("p1X"),
 						result.getInt("p1Y"),
 						result.getInt("Rayon"));
-				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+				System.out.println("Forme => "+result.getString("Type")+", "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 						"), "+result.getInt("Rayon")+")");
 						
 			}
@@ -38,7 +38,7 @@ public class DrawingTUI {
 						result.getInt("p1Y"),
 						result.getInt("p2X"),
 						result.getInt("p2Y"));
-				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+				System.out.println("Forme => "+result.getString("Type")+", "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 						"),("+result.getInt("p2X")+", "+result.getInt("p2Y")+"))");
 			}
 			else if(result.getString("Type").equals("Carré")) {
@@ -47,7 +47,7 @@ public class DrawingTUI {
 						result.getInt("p1X"),
 						result.getInt("p1Y"),
 						result.getInt("Taille"));
-				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+				System.out.println("Forme => "+result.getString("Type")+", "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 						"), "+result.getInt("Taille")+")");
 			}
 			else if(result.getString("Type").equals("Triangle")) {
@@ -59,11 +59,22 @@ public class DrawingTUI {
 						result.getInt("p2Y"),
 						result.getInt("p3X"),
 						result.getInt("p3Y"));
-				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+				System.out.println("Forme => "+result.getString("Type")+", "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 						"),( "+result.getInt("p2X")+", "+result.getInt("p2Y")+"),(" + result.getInt("p2X")+", "+result.getInt("p2Y")+"))" );
 			}	
 		}
-}
+}	
+	
+	public boolean CréerTable() {
+		System.out.print("Créer  une table = ");
+		String str = sc.nextLine();
+		if(str.equals("Oui") || str.equals("oui")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	Command nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
 		
@@ -177,15 +188,26 @@ public class DrawingTUI {
 					CommandeDelete com = new CommandeDelete(conn, s2[0]);
 					return com;
 				}
-				else if(s[0].equals("Group") || s[0].equals("group")) {
-					String[] s2 = s[1].split(",");
-					String[] s3 = s2[1].split("\\)");
+				else if(s[0].equals("show") || s[0].equals("Show")) {
+					String[] s2 = s[1].split("\\)");
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
-					System.out.println(s3[0]);
+					CommandAffiche com = new CommandAffiche(conn, s2[0]);
+					return com;
+				}
+				else if(s[0].equals("Group") || s[0].equals("group")) {
+					//Group(add,G1,C1)
+					String[] s2 = s[1].split(",");
+					String[] s3 = s2[2].split("\\)");
+					/*System.out.println(s[0]);
+					System.out.println(s2[0]);
+					System.out.println(s3[0]);*/
+					if(s2[0].equals("Add") || s2[0].equals("add")) {
+						
+					}
 					return null;
 				}
-				else if(s[0].equals("show") || s[0].equals("Show")) {
+				else if(s[0].equals("show all") || s[0].equals("Show all")) {
 					System.out.println("Dessin: ");
 					AfficheAll(conn);
 					return null;

@@ -6,6 +6,7 @@ public class Rectangle implements Forme {
 	private int HGY;
 	private int BDX;
 	private int BDY;
+	public String Groupe;
 	
 	public Rectangle(String nom, int x, int y, int x2, int y2) {
 		this.Nom = nom;
@@ -17,6 +18,14 @@ public class Rectangle implements Forme {
 	
 	public String getNom() {
 		return this.Nom;
+	}
+	
+	public void setGroupe(String str) {
+		this.Groupe = str;
+	}
+	
+	public String getGroupe() {
+		return this.Groupe;
 	}
 	
 	public int getHGX() {

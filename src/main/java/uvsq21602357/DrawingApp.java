@@ -1,6 +1,8 @@
 package uvsq21602357;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DrawingApp {
 	public DrawingApp() {
@@ -10,7 +12,10 @@ public class DrawingApp {
 	public void run() throws ClassNotFoundException, SQLException {
 		DrawingTUI d = new DrawingTUI();
 		JDBC j = new JDBC();
-		j.CreateTable();
+		List<FormeComposite> lfc = new ArrayList<FormeComposite>();
+		if(d.CréerTable()) {
+			j.CreateTable();
+		}
 		while(true) {
 			Command c = d.nextCommand(j.conn);
 			if(c != null) {
