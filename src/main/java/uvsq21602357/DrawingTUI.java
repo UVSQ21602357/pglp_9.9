@@ -15,23 +15,19 @@ public class DrawingTUI {
 	}
 	
 	private void AfficheAll(Connection conn) throws SQLException {
-		 Forme f;
+		Forme f;
 		PreparedStatement prepare = conn.prepareStatement(
-				"SELECT * FROM formes WHERE nom = ? ");
-		prepare.setString(1,  "C1");
+				"SELECT * FROM formes");
 		
-
 		ResultSet result = prepare.executeQuery();
-		if(result != null) {System.out.println("test");}
 		while(result.next()) {
-			System.out.println("test");
 			if(result.getString("Type").equals("Cercle")) {
 				f = new Cercle(
 						result.getString("Nom"),
 						result.getInt("p1X"),
 						result.getInt("p1Y"),
 						result.getInt("Rayon"));
-				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 						"), "+result.getInt("Rayon")+")");
 						
 			}
@@ -42,6 +38,8 @@ public class DrawingTUI {
 						result.getInt("p1Y"),
 						result.getInt("p2X"),
 						result.getInt("p2Y"));
+				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+						"),("+result.getInt("p2X")+", "+result.getInt("p2Y")+"))");
 			}
 			else if(result.getString("Type").equals("Carré")) {
 				f = new Carré(
@@ -49,6 +47,8 @@ public class DrawingTUI {
 						result.getInt("p1X"),
 						result.getInt("p1Y"),
 						result.getInt("Taille"));
+				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+						"), "+result.getInt("Taille")+")");
 			}
 			else if(result.getString("Type").equals("Triangle")) {
 				f = new Triangle(
@@ -59,8 +59,10 @@ public class DrawingTUI {
 						result.getInt("p2Y"),
 						result.getInt("p3X"),
 						result.getInt("p3Y"));
-			}		
-	}
+				System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
+						"),( "+result.getInt("p2X")+", "+result.getInt("p2Y")+"),(" + result.getInt("p2X")+", "+result.getInt("p2Y")+"))" );
+			}	
+		}
 }
 	
 	Command nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
@@ -74,7 +76,7 @@ public class DrawingTUI {
 			}
 			
 			if(str.equals("Create") || str.equals("create")) {
-				System.out.println("Create: ");
+				System.out.print("Create: ");
 				str = sc.nextLine();
 				String[] s = str.split("=");
 				String[] s2 = s[1].split("\\(\\(");
@@ -158,10 +160,10 @@ public class DrawingTUI {
 				if(s[0].equals("move") || s[0].equals("Move")) {
 					String[] s2 = s[1].split(",");
 					String[] s3 = s2[2].split("\\)");
-					System.out.println(s[0]);
+					/*System.out.println(s[0]);
 					System.out.println(s2[0]);
 					System.out.println(s2[1]);
-					System.out.println(s3[0]);
+					System.out.println(s3[0]);*/
 					int x = Integer.parseInt(s2[1]);
 					int y = Integer.parseInt(s3[0]);
 					CommandMove com = new CommandMove(conn, s2[0], x, y);

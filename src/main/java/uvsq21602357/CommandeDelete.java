@@ -20,6 +20,6 @@ public class CommandeDelete implements Command {
           	 FD.delete(Nom);
         }
         
-        System.out.println("Forme supprimer");
+        System.out.println("Forme supprimé");
     }
 }

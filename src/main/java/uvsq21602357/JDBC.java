@@ -12,7 +12,7 @@ public class JDBC {
 	public JDBC() throws SQLException, ClassNotFoundException {
 		Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 	      //Getting the Connection object
-	      String URL = "jdbc:derby:forme;create=true";
+	      String URL = "jdbc:derby:DB;create=true";
 	      this.conn = DriverManager.getConnection(URL);
 	      if(conn!= null) {
 	      System.out.println("Connecté à la base");
@@ -36,6 +36,7 @@ public class JDBC {
 		         + "p3X INT, "
 		         + "p3Y INT, "
 		         + "Rayon INT, "
+		         + "Taille INT, "
 		         + "PRIMARY KEY (Nom))";
 		         stmt.execute(query);
 		         System.out.println("Table créer");
