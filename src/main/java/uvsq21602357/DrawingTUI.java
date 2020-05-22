@@ -20,14 +20,14 @@ public class DrawingTUI {
 		  ResultSet result = prepare.executeQuery();
 		  ResultSetMetaData resultMeta = result.getMetaData();
 		  Forme f;
-		  
-		  while(result.next()){         
-		        for(int i = 1; i <= resultMeta.getColumnCount(); i++)
+		  while(result.next()){        
+
+			  System.out.println("On y est");
 		        	if(result.getString("Type").equals("Cercle")) {
 						f = new Cercle(
 								result.getString("Nom"),
-								result.getInt("CentreX"),
-								result.getInt("CentreY"),
+								result.getInt("p1X"),
+								result.getInt("p1Y"),
 								result.getInt("Rayon"));
 						System.out.println("Forme = "+result.getString("Type")+", Nom = "+result.getString("Nom")+ " ("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
 											"), "+result.getInt("Rayon")+")");
@@ -72,12 +72,15 @@ public class DrawingTUI {
 		System.out.println("Affichage du dessin");
 	}
 	
-	private void nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
+	Command nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
 		
 		//Création
 		System.out.print("Commande = ");
 		String str = sc.nextLine();
-		while(str.equals("Fin") == false) {
+			if(str.equals("Fin") || str.equals("fin")) {
+				CommandFin c = new CommandFin();
+				return c;
+			}
 			
 			if(str.equals("Create") || str.equals("create")) {
 				str = sc.nextLine();
@@ -92,7 +95,7 @@ public class DrawingTUI {
 					int z = Integer.parseInt(s5[0]);
 					Cercle c = new Cercle(s[0], x, y, z);
 					CommandCreer com = new CommandCreer(conn, c);
-					com.execute();
+					return com;
 					/*System.out.println("s = " + s[0]);
 					System.out.println("s2 = " + s2[0]);
 					System.out.println("s4[0] = " + s4[0]);
@@ -115,7 +118,7 @@ public class DrawingTUI {
 					int t = Integer.parseInt(s6[0]);
 					Rectangle R = new Rectangle(s[0], x, y, z, t);
 					CommandCreer com = new CommandCreer(conn, R);
-					com.execute();
+					return com;
 				}
 				else if(s2[0].equals("Carré") || s2[0].equals("carré")) {
 					String[] s3 = s2[1].split("\\),");
@@ -131,7 +134,7 @@ public class DrawingTUI {
 					int z = Integer.parseInt(s5[0]);
 					Carré c = new Carré(s[0], x, y, z);
 					CommandCreer com = new CommandCreer(conn, c);
-					com.execute();
+					return com;
 				}
 				else if(s2[0].equals("Triangle") || s2[0].equals("triangle")) {
 					String[] s3 = s2[1].split("\\),\\(");
@@ -155,7 +158,7 @@ public class DrawingTUI {
 					int n = Integer.parseInt(s8[0]);
 					Triangle T = new Triangle(s[0], x, y, z, t, m, n);
 					CommandCreer com = new CommandCreer(conn, T);
-					com.execute();
+					return com;
 				}
 			}
 			else {
@@ -170,7 +173,7 @@ public class DrawingTUI {
 					int x = Integer.parseInt(s2[1]);
 					int y = Integer.parseInt(s3[0]);
 					CommandMove com = new CommandMove(conn, s2[0], x, y);
-					com.execute();
+					return com;
 					
 				}
 				else if(s[0].equals("Delete") || s[0].equals("delete")) {
@@ -178,7 +181,7 @@ public class DrawingTUI {
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
 					CommandeDelete com = new CommandeDelete(conn, s2[0]);
-					com.execute();
+					return com;
 				}
 				else if(s[0].equals("Group") || s[0].equals("group")) {
 					String[] s2 = s[1].split(",");
@@ -186,13 +189,16 @@ public class DrawingTUI {
 					System.out.println(s[0]);
 					System.out.println(s2[0]);
 					System.out.println(s3[0]);
+					return null;
 				}
 				else if(s[0].equals("show") || s[0].equals("Show")) {
 					System.out.println("Dessin: ");
 					AfficheAll(conn);
+					return null;
 				}
 				else {
 					System.out.println("Erreur, la commande n'est pas reconnu");
+					return null;
 				}
 			}
 
@@ -201,21 +207,6 @@ public class DrawingTUI {
 			
 			System.out.print("Commande = ");
 			str = sc.nextLine();
-		}
-	}
-	
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
-		DrawingTUI d = new DrawingTUI();
-		JDBC j = new JDBC();
-		j.CreateTable();
-		d.nextCommand(j.conn);
-		
-
-		Cercle C = new Cercle("c1", 10, 20, 15);
-		FormeDAO f = new FormeDAO(j.conn);
-	f.create(C);
-	f.find("c1");
-	f.delete("c1");
-		
+			return null;
 	}
 }

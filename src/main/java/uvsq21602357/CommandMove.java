@@ -2,7 +2,7 @@ package uvsq21602357;
 
 import java.sql.Connection;
 
-public class CommandMove {
+public class CommandMove implements Command{
 	private Connection conn;
 	private String Nom;
     int i;
