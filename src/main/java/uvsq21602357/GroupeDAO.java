@@ -27,19 +27,21 @@ public class GroupeDAO extends DAO2 {
 		}
 	 
 	 @Override
-		public void find(String Nom) {
+		public boolean find(String Nom, String str) {
 			Forme f = null;
 			try {
 				PreparedStatement prepare = connect.prepareStatement(
-						"SELECT * FROM groupes WHERE nom = ? ");
+						"SELECT * FROM groupes WHERE NomGroupe = ? AND NomForme = ?");
 				prepare.setString(1,  Nom);
+				prepare.setString(2, str);
 				ResultSet result = prepare.executeQuery();
 				while(result.next()) {
-					System.out.println("Le groupe existe");
+					return true;
 					}	
 				}catch (SQLException e) {
 				e.printStackTrace();
 			}
+			return false;
 		}
 
 	 
@@ -49,75 +51,83 @@ public class GroupeDAO extends DAO2 {
 			PreparedStatement prepare;
 			try {
 				prepare = connect.prepareStatement(
-						"SELECT * FROM groupes WHERE NomGroupe = ?");
+						"SELECT NomGroupe, NomForme FROM groupes WHERE NomGroupe = ?");
 			prepare.setString(1,  Nom);
 			ResultSet result = prepare.executeQuery();
+			
 			while(result.next()) {
-				if(result.getString("Type").equals("Cercle")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					i = i + x;
-					j = j + y;PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE formes SET p1X = ?, p1Y = ?WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setString(3, Nom);
-					prepare2.executeUpdate();
-					
-				}
-				else if(result.getString("Type").equals("Rectangle")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					int k = result.getInt("p2X");
-					int l = result.getInt("p2Y");
-					i = i + x;
-					j = j + y;
-					k = k + x;
-					l = l + y;
-					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1Y = ?,p2X = ?, p2Y = ? WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setInt(3, k);
-					prepare2.setInt(4, l);
-					prepare2.setString(5, Nom);
-					prepare2.executeUpdate();
-				}
-				else if(result.getString("Type").equals("Carré")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					i = i + x;
-					j = j + y;
-					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1eY = ? WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setString(3, Nom);
-					prepare2.executeUpdate();
-				}
-				else if(result.getString("Type").equals("Triangle")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					int k = result.getInt("p2X");
-					int l = result.getInt("p2Y");
-					int m = result.getInt("p3X");
-					int n = result.getInt("p3Y");
-					i = i + x;
-					j = j + y;
-					k = k + x;
-					l = l + y;
-					m = m + x;
-					n = n + y;
-					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE formes SET p1X = ?, p1Y = ?, p2X = ?, p2Y = ?, p3X = ?, p3Y = ? WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setInt(3, k);
-					prepare2.setInt(4, l);
-					prepare2.setInt(5, m);
-					prepare2.setInt(6, n);
-					prepare2.setString(7, Nom);
-					prepare2.executeUpdate();
+				PreparedStatement prepare3 = connect.prepareStatement(
+							"SELECT * FROM formes WHERE Nom = ?");
+				prepare3.setString(1,  result.getString("NomForme"));
+				ResultSet result2 = prepare3.executeQuery();
+				if(result2.next()) {
+					if(result2.getString("Type").equals("Cercle")) {
+						int i = result2.getInt("p1X");
+						int j = result2.getInt("p1Y");
+						i = i + x;
+						j = j + y;
+						PreparedStatement prepare2 = connect.prepareStatement(
+								"UPDATE formes SET p1X = ?, p1Y = ?WHERE Nom = ?");
+						prepare2.setInt(1, i);
+						prepare2.setInt(2, j);
+						prepare2.setString(3, result.getString("NomForme"));
+						prepare2.executeUpdate();
+						
+					}
+					else if(result2.getString("Type").equals("Rectangle")) {
+						int i = result2.getInt("p1X");
+						int j = result2.getInt("p1Y");
+						int k = result2.getInt("p2X");
+						int l = result2.getInt("p2Y");
+						i = i + x;
+						j = j + y;
+						k = k + x;
+						l = l + y;
+						PreparedStatement prepare2 = connect.prepareStatement(
+								"UPDATE formes SET p1X = ?, p1Y = ?,p2X = ?, p2Y = ? WHERE Nom = ?");
+						prepare2.setInt(1, i);
+						prepare2.setInt(2, j);
+						prepare2.setInt(3, k);
+						prepare2.setInt(4, l);
+						prepare2.setString(5, result.getString("NomForme"));
+						prepare2.executeUpdate();
+					}
+					else if(result2.getString("Type").equals("Carré")) {
+						int i = result2.getInt("p1X");
+						int j = result2.getInt("p1Y");
+						i = i + x;
+						j = j + y;
+						PreparedStatement prepare2 = connect.prepareStatement(
+								"UPDATE formes SET p1X = ?, p1Y = ? WHERE Nom = ?");
+						prepare2.setInt(1, i);
+						prepare2.setInt(2, j);
+						prepare2.setString(3, result.getString("NomForme"));
+						prepare2.executeUpdate();
+					}
+					else if(result2.getString("Type").equals("Triangle")) {
+						int i = result2.getInt("p1X");
+						int j = result2.getInt("p1Y");
+						int k = result2.getInt("p2X");
+						int l = result2.getInt("p2Y");
+						int m = result2.getInt("p3X");
+						int n = result2.getInt("p3Y");
+						i = i + x;
+						j = j + y;
+						k = k + x;
+						l = l + y;
+						m = m + x;
+						n = n + y;
+						PreparedStatement prepare2 = connect.prepareStatement(
+								"UPDATE formes SET p1X = ?, p1Y = ?, p2X = ?, p2Y = ?, p3X = ?, p3Y = ? WHERE Nom = ?");
+						prepare2.setInt(1, i);
+						prepare2.setInt(2, j);
+						prepare2.setInt(3, k);
+						prepare2.setInt(4, l);
+						prepare2.setInt(5, m);
+						prepare2.setInt(6, n);
+						prepare2.setString(7, result.getString("NomForme"));
+						prepare2.executeUpdate();
+					}
 				}
 			}
 			} catch (SQLException e) {
@@ -133,7 +143,7 @@ public class GroupeDAO extends DAO2 {
 						"DELETE FROM groupes WHERE NomGroupe = ? ");
 				prepare.setString(1, Nom);
 				prepare.executeUpdate();
-				System.out.println(Nom + " supprimer");
+				System.out.println(Nom + " supprimé");
 				
 			} catch (SQLException e) {
 				e.printStackTrace();

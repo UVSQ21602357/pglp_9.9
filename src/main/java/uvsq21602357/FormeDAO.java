@@ -174,7 +174,7 @@ public class FormeDAO extends DAO<Forme> {
 					k = k + x;
 					l = l + y;
 					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1Y = ?,p2X = ?, p2Y = ? WHERE Nom = ?");
+							"UPDATE formes SET p1X = ?, p1Y = ?,p2X = ?, p2Y = ? WHERE Nom = ?");
 					prepare2.setInt(1, i);
 					prepare2.setInt(2, j);
 					prepare2.setInt(3, k);
@@ -188,7 +188,7 @@ public class FormeDAO extends DAO<Forme> {
 					i = i + x;
 					j = j + y;
 					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1eY = ? WHERE Nom = ?");
+							"UPDATE formes SET p1X = ?, p1Y = ? WHERE Nom = ?");
 					prepare2.setInt(1, i);
 					prepare2.setInt(2, j);
 					prepare2.setString(3, Nom);

@@ -11,7 +11,7 @@ public abstract class DAO2{
 	
 	public abstract void create(String g, String f);
 	
-	public abstract void find(String Nom);
+	public abstract boolean find(String Nom, String str);
 	
 	public abstract void update(String Nom, int x, int y);
 	

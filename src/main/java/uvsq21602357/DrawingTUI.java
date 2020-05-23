@@ -60,10 +60,22 @@ public class DrawingTUI {
 						result.getInt("p3X"),
 						result.getInt("p3Y"));
 				System.out.println("Forme => "+result.getString("Type")+", "+result.getString("Nom")+ " (("+ result.getInt("p1X") +", " + result.getInt("p1Y") +
-						"),( "+result.getInt("p2X")+", "+result.getInt("p2Y")+"),(" + result.getInt("p2X")+", "+result.getInt("p2Y")+"))" );
+						"),( "+result.getInt("p2X")+", "+result.getInt("p3Y")+"),(" + result.getInt("p3X")+", "+result.getInt("p2Y")+"))" );
 			}	
 		}
 }	
+	
+	public void AfficheGroupe(Connection conn) throws SQLException {
+		Forme f;
+		PreparedStatement prepare = conn.prepareStatement(
+				"SELECT * FROM groupes");
+		
+		ResultSet result = prepare.executeQuery();
+		while(result.next()) {
+			System.out.println("Groupe => "+result.getString("NomGroupe") + ", F= "+ result.getString("NomForme"));
+			
+		}
+	}
 	
 	public boolean CréerTable() {
 		System.out.print("Créer  une table = ");
@@ -198,18 +210,33 @@ public class DrawingTUI {
 				else if(s[0].equals("Group") || s[0].equals("group")) {
 					//Group(add,G1,C1)
 					String[] s2 = s[1].split(",");
-					String[] s3 = s2[2].split("\\)");
+					
 					/*System.out.println(s[0]);
 					System.out.println(s2[0]);
 					System.out.println(s3[0]);*/
 					if(s2[0].equals("Add") || s2[0].equals("add")) {
-						
+						String[] s3 = s2[2].split("\\)");
+						CommandAjouteGroupe c = new CommandAjouteGroupe(conn, s2[1], s3[0]);
+						return c;
+					}
+					else if(s2[0].equals("move") || s2[0].equals("Move")) {
+						String[] s3 = s2[3].split("\\)");
+						int x = Integer.parseInt(s2[2]);
+						int y = Integer.parseInt(s3[0]);
+						CommandUpdateGroupe c = new CommandUpdateGroupe(conn, s2[1], x, y);
+						return c;
+					}
+					else if(s2[0].equals("delete") || s2[0].equals("Delete")) {
+						String[] s3 = s2[1].split("\\)");
+						CommandDeleteGroupe c = new CommandDeleteGroupe(conn, s3[0]);
+						return c;
 					}
 					return null;
 				}
 				else if(s[0].equals("show all") || s[0].equals("Show all")) {
 					System.out.println("Dessin: ");
 					AfficheAll(conn);
+					AfficheGroupe(conn);
 					return null;
 				}
 				else {
