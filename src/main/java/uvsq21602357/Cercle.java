@@ -18,6 +18,10 @@ public class Cercle implements Forme {
 		return this.Nom;
 	}
 	
+	public String getType() {
+		return "Cercle";
+	}
+	
 	public void setGroupe(String str) {
 		this.Groupe = str;
 	}

@@ -38,6 +38,10 @@ public class FormeComposite implements Forme {
 		return "null";
 	}
 	
+	public String getType() {
+		return "null";
+	}
+	
 	
 	
 

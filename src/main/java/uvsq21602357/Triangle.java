@@ -24,6 +24,10 @@ public class Triangle implements Forme {
 		return this.Nom;
 	}
 	
+	public String getType() {
+		return "Triangle";
+	}
+	
 	public void setGroupe(String str) {
 		this.Groupe = str;
 	}

@@ -155,6 +155,48 @@ public class FormeDAO extends DAO<Forme> {
 				if(result.getString("Type").equals("Cercle")) {
 					int i = result.getInt("p1X");
 					int j = result.getInt("p1Y");
+					i = i + x;
+					j = j + y;PreparedStatement prepare2 = connect.prepareStatement(
+							"UPDATE formes SET p1X = ?, p1Y = ?WHERE Nom = ?");
+					prepare2.setInt(1, i);
+					prepare2.setInt(2, j);
+					prepare2.setString(3, Nom);
+					prepare2.executeUpdate();
+					
+				}
+				else if(result.getString("Type").equals("Rectangle")) {
+					int i = result.getInt("p1X");
+					int j = result.getInt("p1Y");
+					int k = result.getInt("p2X");
+					int l = result.getInt("p2Y");
+					i = i + x;
+					j = j + y;
+					k = k + x;
+					l = l + y;
+					PreparedStatement prepare2 = connect.prepareStatement(
+							"UPDATE places SET p1X = ?, p1Y = ?,p2X = ?, p2Y = ? WHERE Nom = ?");
+					prepare2.setInt(1, i);
+					prepare2.setInt(2, j);
+					prepare2.setInt(3, k);
+					prepare2.setInt(4, l);
+					prepare2.setString(5, Nom);
+					prepare2.executeUpdate();
+				}
+				else if(result.getString("Type").equals("Carré")) {
+					int i = result.getInt("p1X");
+					int j = result.getInt("p1Y");
+					i = i + x;
+					j = j + y;
+					PreparedStatement prepare2 = connect.prepareStatement(
+							"UPDATE places SET p1X = ?, p1eY = ? WHERE Nom = ?");
+					prepare2.setInt(1, i);
+					prepare2.setInt(2, j);
+					prepare2.setString(3, Nom);
+					prepare2.executeUpdate();
+				}
+				else if(result.getString("Type").equals("Triangle")) {
+					int i = result.getInt("p1X");
+					int j = result.getInt("p1Y");
 					int k = result.getInt("p2X");
 					int l = result.getInt("p2Y");
 					int m = result.getInt("p3X");
@@ -174,43 +216,6 @@ public class FormeDAO extends DAO<Forme> {
 					prepare2.setInt(5, m);
 					prepare2.setInt(6, n);
 					prepare2.setString(7, Nom);
-					prepare2.executeUpdate();
-					
-				}
-				else if(result.getString("Type").equals("Rectangle")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					i = i + x;
-					j = j + y;
-					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setString(3, Nom);
-					prepare2.executeUpdate();
-				}
-				else if(result.getString("Type").equals("Carré")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					i = i + x;
-					j = j + y;
-					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1eY = ? WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setString(3, Nom);
-					prepare2.executeUpdate();
-				}
-				else if(result.getString("Type").equals("Triangle")) {
-					int i = result.getInt("p1X");
-					int j = result.getInt("p1Y");
-					i = i + x;
-					j = j + y;
-					PreparedStatement prepare2 = connect.prepareStatement(
-							"UPDATE places SET p1X = ?, p1Y = ? WHERE Nom = ?");
-					prepare2.setInt(1, i);
-					prepare2.setInt(2, j);
-					prepare2.setString(3, Nom);
 					prepare2.executeUpdate();
 				}
 			}

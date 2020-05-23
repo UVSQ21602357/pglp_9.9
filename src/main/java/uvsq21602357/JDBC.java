@@ -39,7 +39,13 @@ public class JDBC {
 		         + "Taille INT, "
 		         + "PRIMARY KEY (Nom))";
 		         stmt.execute(query);
-		         System.out.println("Table créer");
+		         System.out.println("Table formes créée");
+		         String query2 = "CREATE TABLE groupes( "
+				         + "NomGroupe VARCHAR(255) NOT NULL, "
+				         + "NomForme VARCHAR(255) NOT NULL, "
+				         + "PRIMARY KEY (NomGroupe,NomForme))";
+				 stmt.execute(query2);
+				 System.out.println("Table groupes créée");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

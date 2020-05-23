@@ -18,6 +18,10 @@ public class Carré implements Forme{
 		return this.Nom;
 	}
 	
+	public String getType() {
+		return "Carré";
+	}
+	
 	public void setGroupe(String str) {
 		this.Groupe = str;
 	}

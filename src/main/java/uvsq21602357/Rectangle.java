@@ -20,6 +20,10 @@ public class Rectangle implements Forme {
 		return this.Nom;
 	}
 	
+	public String getType() {
+		return "Rectangle";
+	}
+	
 	public void setGroupe(String str) {
 		this.Groupe = str;
 	}
