@@ -1,6 +1,6 @@
 Une fois lancer le programme demande si on veut créer une nouvelle base, il faut répondre non si on en a deja une,
 oui autrement. Ensuite on se retrouve sur l'interface de commande, il faut entrer la commande voulu comme dans les 
-exemples ci-dessous:
+exemples ci-dessous, il ne faut pas mettre d'espace lors de l'écriture d'une commande:
 	- Show all pour voir les Formes existantes et les groupes
 	- Show(C1) pour voir une seul forme(C1 est le nom entré en exemple)
 	- End pour arrêter le programme
