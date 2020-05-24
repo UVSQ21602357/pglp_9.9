@@ -16,6 +16,5 @@ public class CommandAffiche implements Command {
     public void execute() {
     	FormeDAO FD = new FormeDAO(conn);
     	Forme test = FD.find(Nom);        
-        System.out.println("Forme supprimé");
     }
 }
