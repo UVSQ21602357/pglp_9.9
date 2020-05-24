@@ -68,7 +68,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>fr.uvsq.uvsq21600767.Compte</mainClass>
+              <mainClass>uvsq21602357.DrawingApp</mainClass>
             </manifest>
           </archive>
         </configuration>

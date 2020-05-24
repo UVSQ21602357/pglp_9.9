@@ -36,26 +36,29 @@ public class CommandCreer implements Command {
         	Forme test = FD.find(this.cercle.getNom());
         	if(test == null) {
            	FD.create(cercle);
+           	System.out.println("Forme créée");
             }
         }
         else if(rect != null) {
         	Forme test = FD.find(this.rect.getNom());
         	if(test == null) {
               	 FD.create(rect);
+              	 System.out.println("Forme créée");
                }
         }
         else if(carré != null) {
         	Forme test = FD.find(this.carré.getNom());
         	if(test == null) {
               	 FD.create(carré);
+                 System.out.println("Forme créée");
                }
         }
         else if(triangle != null) {
         	Forme test = FD.find(this.triangle.getNom());
         	if(test == null) {
               	 FD.create(triangle);
+              	 System.out.println("Forme créée");
                }
         }   
-        System.out.println("Forme créée");
     }
 }

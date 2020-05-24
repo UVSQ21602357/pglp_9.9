@@ -22,7 +22,6 @@ public class FormeDAO extends DAO<Forme> {
 			prepare.setInt(4, c.getCentreY());
 			prepare.setInt(5, c.getRayon());
 			int result = prepare.executeUpdate();
-			System.out.println("Creation de "+c.getNom());
 			assert result == 1;
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -41,7 +40,6 @@ public class FormeDAO extends DAO<Forme> {
 			prepare.setInt(5, R.getBDX());
 			prepare.setInt(6, R.getBDY());
 			int result = prepare.executeUpdate();
-			System.out.println("Creation de "+R.getNom());
 			assert result == 1;
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -59,7 +57,6 @@ public class FormeDAO extends DAO<Forme> {
 			prepare.setInt(4, c.getHGY());
 			prepare.setInt(5, c.getTaille());
 			int result = prepare.executeUpdate();
-			System.out.println("Creation de "+c.getNom());
 			assert result == 1;
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -80,7 +77,6 @@ public class FormeDAO extends DAO<Forme> {
 			prepare.setInt(7, t.getP3X());
 			prepare.setInt(8, t.getP3Y());
 			int result = prepare.executeUpdate();
-			System.out.println("Creation de "+t.getNom());
 			assert result == 1;
 		} catch(SQLException e) {
 			e.printStackTrace();
