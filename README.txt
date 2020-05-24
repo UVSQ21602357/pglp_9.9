@@ -22,3 +22,8 @@ exemples ci-dessous:
 
 Chaque nom de figure est unique, et si l'utilisateur tente d'ajouter une forme avec le nom d'une forme déjà 
 existante il n'y arrivera pas.
+
+
+A chaque ajout de forme, le programme l'enregistre dans la base de données et y accède pour supprimer un élément
+ou le déplacer. Toutes les formes sont enregistrées dans la même table, et il existe une table pour les groupes
+qui enregistre le nom du groupe et le nom de la forme et y accède aussi de la même manière que pour une forme.
