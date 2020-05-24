@@ -88,13 +88,24 @@ public class DrawingTUI {
 		}
 	}
 	
-	Command nextCommand(Connection conn) throws SQLException, ClassNotFoundException {
+	public boolean SupprTable() {
+		System.out.print("Supprimer le dessin = ");
+		String str = sc.nextLine();
+		if(str.equals("Oui") || str.equals("oui")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	Command nextCommand(Connection conn, JDBC j) throws SQLException, ClassNotFoundException {
 		
 		//Création
 		System.out.print("Commande = ");
 		String str = sc.nextLine();
 			if(str.equals("End") || str.equals("end")) {
-				CommandFin c = new CommandFin();
+				CommandFin c = new CommandFin(j);
 				return c;
 			}
 			

@@ -17,11 +17,11 @@ public class DrawingApp {
 			j.CreateTable();
 		}
 		while(true) {
-			Command c = d.nextCommand(j.conn);
+			Command c = d.nextCommand(j.conn, j);
 			if(c != null) {
 				c.execute();
 			}
-		}		
+		}
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {

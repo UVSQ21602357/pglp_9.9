@@ -53,5 +53,21 @@ public class JDBC {
 			 
 	     
 	}
+	
+	public void Supprime() {
+		Statement stmt;
+		try {
+			stmt = this.conn.createStatement();
+			 //Executing the query
+		      String query = "DROP TABLE formes";
+		         stmt.execute(query);
+		         String query2 = "DROP TABLE groupes";
+				 stmt.execute(query2);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 }
